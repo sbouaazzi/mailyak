@@ -60,7 +60,8 @@ func smtpExchange(m sendableMail, conn net.Conn, serverName string, tryTLSUpgrad
 		if ok, _ := c.Extension("STARTTLS"); ok {
 			//nolint:gosec
 			config := &tls.Config{
-				ServerName: serverName,
+				ServerName:         serverName,
+				InsecureSkipVerify: true,
 			}
 			if err = c.StartTLS(config); err != nil {
 				return err
